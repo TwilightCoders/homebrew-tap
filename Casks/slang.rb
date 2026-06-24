@@ -19,6 +19,13 @@ cask "slang" do
   desc "Shader compiler (slangc) and tooling for the Slang shading language"
   homepage "https://github.com/shader-slang/slang"
 
+  # Lets `brew livecheck` spot new upstream releases and `brew bump-cask-pr`
+  # auto-fill the version + every arch's sha256.
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
   # bin/ and its sibling lib/ both land in the Caskroom; the symlink's
   # @loader_path resolves back to the real bin, so `../lib` finds libslang*.dylib.
   binary "bin/slangc"
