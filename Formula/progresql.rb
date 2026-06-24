@@ -1,8 +1,8 @@
 class Progresql < Formula
   desc "PostgreSQL 18 fork adding cross-partition GLOBAL UNIQUE/PK (spanning) indexes"
   homepage "https://github.com/TwilightCoders/progresql"
-  url "https://github.com/TwilightCoders/progresql/archive/refs/tags/v18.3-0.1.0.tar.gz"
-  sha256 "e579b75881f8b59d886671107122f511c8972708c2bdecc3c47c89a123166192"
+  url "https://github.com/TwilightCoders/progresql/archive/refs/tags/v18.3-0.2.0.tar.gz"
+  sha256 "4cab230109a9debf8e772de0db8d3d6bcd530c323e19c1ad0bb480e99e3799a4"
   license "PostgreSQL"
   head "https://github.com/TwilightCoders/progresql.git", branch: "progresql-c1"
 
@@ -39,10 +39,13 @@ class Progresql < Formula
     system "./configure", *args
     system "make"
     system "make", "install"
-    # amcheck: the contrib extension used to verify spanning indexes (and by the
-    # test block below).  This is the exact build sequence proven on Linux/x86_64.
-    system "make", "-C", "contrib/amcheck"
-    system "make", "-C", "contrib/amcheck", "install"
+    # Build + install the full contrib module set, for drop-in parity with a stock
+    # PostgreSQL distribution: amcheck (the spanning-index oracle, also used by the
+    # test block below), citext, pgcrypto, hstore, pg_trgm, btree_gin/gist, and the
+    # rest. contrib's own Makefile skips modules gated on deps this lean configure
+    # does not enable (uuid-ossp, sepgsql, the PL transforms).
+    system "make", "-C", "contrib"
+    system "make", "-C", "contrib", "install"
   end
 
   test do
