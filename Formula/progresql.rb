@@ -1,8 +1,8 @@
 class Progresql < Formula
   desc "PostgreSQL 18 fork adding cross-partition GLOBAL UNIQUE/PK (spanning) indexes"
   homepage "https://github.com/TwilightCoders/progresql"
-  url "https://github.com/TwilightCoders/progresql/archive/refs/tags/v18.3-0.2.2.tar.gz"
-  sha256 "74a86a2c22aa6aea4b450acec66ae22a8643b36ff966e637417e11375fba48e3"
+  url "https://github.com/TwilightCoders/progresql/archive/refs/tags/v18.3-0.2.3.tar.gz"
+  sha256 "fc85ce8fad9ca8a83b411e54f2e6dfc6be479eaaa175e643e8a86f8b0c23ee81"
   license "PostgreSQL"
   head "https://github.com/TwilightCoders/progresql.git", branch: "progresql-c1"
 
